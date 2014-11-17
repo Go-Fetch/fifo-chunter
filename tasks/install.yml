@@ -1,0 +1,17 @@
+---
+
+- name: download latest chunter
+  get_url: url=http://release.project-fifo.net/chunter/{{chunter_release}}/chunter-latest.gz dest=/opt/chunter-latest.gz
+
+- name: unpack chunter
+  shell: gunzip -f /opt/chunter-latest.gz
+
+- name: remove prompts
+  shell: sed -i.orig '/read/d' /opt/chunter-latest 
+
+- name: remove exits
+  shell: sed -i.bak -e '/exit[[:space:]]1/d' /opt/chunter-latest 
+
+- name: install chunter
+  shell: sh /opt/chunter-latest -f
+  notify: Bounce Chunter
