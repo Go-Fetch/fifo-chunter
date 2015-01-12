@@ -1,5 +1,8 @@
 ---
 
+- name: Gather our facts
+  action: setup
+
 - name: Lookup version of chunter
   shell: awk {'gsub(",",""); print $1'} /opt/chunter/etc/chunter.version
   register: chunter_version_installed
@@ -13,8 +16,8 @@
 - include: install.yml
   when: chunter_version_installed.stdout != '{{chunter_version_required}}'
 
-- name: set cookie
-  lineinfile: dest=/opt/chunter/etc/chunter.conf regexp='^distributed_cookie' line='distributed_cookie = {{chunter_cookie}}'
+- name: configure chunter
+  template: src=chunter-config.j2 dest=/opt/chunter/etc/chunter.conf
   notify: Bounce Chunter
 
 - name: Enable epmd

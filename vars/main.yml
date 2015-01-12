@@ -1,4 +1,8 @@
 ---
-chunter_version_required: "dev-41502a3"
+# Kevin M. Meziere <kmeziere@jpcatholic.com>
+# Copyright 2015, John Paul the Great Catholic University
+
+version_required: "dev-6ac9f9c"
 chunter_release: "dev"
-chunter_cookie: "COOKIE"
+chunter_download_name: "chunter-0.6.1pre20150112T162024Z.gz"
+chunter_cookie: "{{chunter_cookie}}"
