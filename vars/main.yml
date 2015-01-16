@@ -5,4 +5,4 @@
 version_required: "chunter-0.6.1p1"
 chunter_release: "rel"
 chunter_download_name: "chunter-0.6.1p1.gz"
-chunter_cookie: "{{chunter_cookie}}"
+chunter_cookie: <<chunter_cookie>>
