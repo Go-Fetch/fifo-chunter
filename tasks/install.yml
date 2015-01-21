@@ -1,7 +1,7 @@
 ---
 
 - name: download latest chunter
-  get_url: url=http://release.project-fifo.net/chunter/{{chunter_release}}/{{chunter_download_name}} dest=/opt/chunter-latest.gz
+  shell: curl http://release.project-fifo.net/chunter/{{chunter_release}}/{{chunter_download_name}} -o /opt/chunter-latest.gz
 
 - name: unpack chunter
   shell: gunzip -f /opt/chunter-latest.gz
