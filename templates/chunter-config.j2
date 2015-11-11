@@ -1,3 +1,36 @@
+## Enables or disables the zone snapshot API
+## 
+## Default: on
+## 
+## Acceptable values:
+##   - on or off
+snapshot_api = on
+
+## Enables or disables the zone backup API
+## 
+## Default: on
+## 
+## Acceptable values:
+##   - on or off
+backup_api = on
+
+## Enables or disables the zone metadata API
+## 
+## Default: on
+## 
+## Acceptable values:
+##   - on or off
+metadata_api = on
+
+## Enables or disables the zone grouping
+## (stacks and clusters) metadata API
+## 
+## Default: on
+## 
+## Acceptable values:
+##   - on or off
+grouping_api = on
+
 ## Memory reserved on the hypervisor.
 ## 
 ## Default: 0MB
@@ -62,30 +95,12 @@ parallel_downloads = 5
 ##   - an integer
 max_parallel_downloads = 10
 
-## NSQ endpoint to send messages to, right now performance metrics
-## and service changes
-## changes are noted even when the state is the same at least for the nsq
-## logging.
-## 
-## Acceptable values:
-##   - an IP/port pair, e.g. 127.0.0.1:10011
-## nsq_producer = 127.0.0.1:4150
-
-## Configures weather kstat should be used to perform periodic
-## performance measurements on zones and the hypervisor.
-## 
-## Default: enabled
-## 
-## Acceptable values:
-##   - one of: enabled, disabled
-kstat.metrics = enabled
-
 ## Enables or disables the ARC stats for this server.
 ## 
 ## Default: enabled
 ## 
 ## Acceptable values:
-##   - one of: enabled, disabled
+##   - enabled or disabled
 kstat.arc = enabled
 
 ## The interval services for a zone are checked, the default is 10s
@@ -161,6 +176,21 @@ ip = {{ ansible_default_ipv4['address'] }}:4200
 ## Acceptable values:
 ##   - one of: default, qemu64, host
 cpu_type = default
+
+## zone root for creating new zones
+## 
+## Default: /zones
+## 
+## Acceptable values:
+##   - text
+zone_root = /zones
+
+## network mappings only apply for OmniOS hosts, they are handled in the
+## /usbkey/config in SmartOS and this setting iwll be ignored there.
+## 
+## Acceptable values:
+##   - text
+## network_tag.name = bge0
 
 ## The default realm to use for snarl calls.
 ## 
@@ -291,6 +321,13 @@ erlang.max_ports = 65536
 ## console : standard out
 ## both : log.console.file and standard out.
 ## 
+## Default: chunter
+## 
+## Acceptable values:
+##   - text
+log.service = chunter
+
+## 
 ## Default: file
 ## 
 ## Acceptable values:
@@ -353,19 +390,45 @@ log.watchdog.level = error
 ##   - text
 log.watchdog.cluster = fifo
 
-## the log level of the watchdog log
-## 
-## Default: chunter
-## 
-## Acceptable values:
-##   - text
-log.watchdog.service = chunter
-
 ## The ip of the watchdog server
 ## 
 ## Acceptable values:
 ##   - an IP/port pair, e.g. 127.0.0.1:10011
 ## log.watchdog.host.name = 127.0.0.1:4444
+
+## The ip of the graylog server
+## 
+## Default: off
+## 
+## Acceptable values:
+##   - an IP/port pair, e.g. 127.0.0.1:10011
+##   - the text "off"
+## log.graylog.host = 127.0.0.1:12201
+
+## the log level of the graylog log
+## 
+## Default: info
+## 
+## Acceptable values:
+##   - one of: debug, info, warning, error
+log.graylog.level = info
+
+## The ip of the graylog server
+## 
+## Default: off
+## 
+## Acceptable values:
+##   - an IP/port pair, e.g. 127.0.0.1:10011
+##   - the text "off"
+## log.logstash.host = 127.0.0.1:9125
+
+## the log level of the graylog log
+## 
+## Default: info
+## 
+## Acceptable values:
+##   - one of: debug, info, warning, error
+log.logstash.level = info
 
 ## Whether to write a crash log, and where.
 ## Commented/omitted/undefined means no crash logger.
